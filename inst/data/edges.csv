@@ -1,0 +1,8 @@
+id,source,target
+e1,alpha,beta
+e2,alpha,gamma
+e3,beta,delta
+e4,beta,epsilon
+e5,zeta,gamma
+e6,theta,gamma
+e7,eta,gamma

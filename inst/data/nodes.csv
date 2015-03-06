@@ -1,0 +1,10 @@
+id,label,size,x,y
+alpha,alpha Label,2,50,15
+beta,beta Label,3,120,50
+gamma,gamma Label,1,160,180
+delta,delta Label,1,260,5
+epsilon,epsilon Label,1,130,40
+zeta,zeta Label,2,310,130
+theta,theta Label,3,190,80
+eta,eta Label,2,240,50
+
