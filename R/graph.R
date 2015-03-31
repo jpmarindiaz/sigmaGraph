@@ -37,7 +37,7 @@ cleanGraph <- function(edges, nodes){
   }
   
   if (is.null(nodes$type)){
-    message("No edge type provided: using random")
+    message("No node type provided: using random")
     ntypes <- c("diamond","square","circle","star","equilateral")
     nodes$type <- sample(ntypes,1)
   }
@@ -62,8 +62,15 @@ cleanGraph <- function(edges, nodes){
     edges$type <- sample(etypes,1)
   }
   
+  nodes <- apply(nodes, 1,function(r){
+    as.list(r)
+  })
+
+  edges <- apply(edges, 1,function(r){
+    as.list(r)
+  })
+
   g <- list(nodes=nodes, edges=edges)    
   data <- g  
-  data <- RJSONIO::fromJSON(datapackager::listToJSON(g))
   data
 }
