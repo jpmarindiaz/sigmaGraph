@@ -31,7 +31,7 @@ sigmaGraphImageNeighbors <- function(edges, nodes = NULL, options = list(),
 }
 
 #' @export
-sigmaGraphNeighborsOutput <- function(outputId, width = "100%", height = "400px") {
+sigmaGraphNeighborsOutput <- function(outputId, width = "100%", height = "500px") {
   shinyWidgetOutput(outputId, "sigmaGraphImageNeighbors", width, height, package = "sigmaGraph")
 }
 

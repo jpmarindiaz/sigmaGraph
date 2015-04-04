@@ -33,6 +33,9 @@ HTMLWidgets.widget({
     },
 
     renderValue: function(el, x, instance) {
+        
+
+        
         //No need for HTMLWidgets.dataframeToD3 since it is computed before.
         var g = x.data;
 
@@ -79,6 +82,8 @@ HTMLWidgets.widget({
         // We do the same for the edges, and we only keep
         // edges that have both extremities colored.
         instance.sig.bind('clickNode', function(e) {
+            var edgeNotSelectedColor = "#ccc";
+
             var nodeId = e.data.node.id,
                 toKeep = instance.sig.graph.neighbors(nodeId);
             toKeep[nodeId] = e.data.node;
@@ -87,14 +92,17 @@ HTMLWidgets.widget({
                 if (toKeep[n.id])
                     n.color = n.originalColor;
                 else
-                    n.color = '#eee';
+                    n.color = edgeNotSelectedColor;
+                    // n.color = "#AAA";
+
             });
 
             instance.sig.graph.edges().forEach(function(e) {
                 if (toKeep[e.source] && toKeep[e.target])
                     e.color = e.originalColor;
                 else
-                    e.color = '#eee';
+                    e.color = edgeNotSelectedColor;
+                    // e.color = "#AAA";
             });
 
             // Since the data has been modified, we need to

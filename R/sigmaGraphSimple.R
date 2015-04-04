@@ -21,7 +21,7 @@ sigmaGraphSimple <- function(edges, nodes = NULL, options = list(),
 }
 
 #' @export
-sigmaGraphSimpleOutput <- function(outputId, width = "100%", height = "400px") {
+sigmaGraphSimpleOutput <- function(outputId, width = "100%", height = "500px") {
   shinyWidgetOutput(outputId, "sigmaGraphSimple", width, height, package = "sigmaGraph")
 }
 

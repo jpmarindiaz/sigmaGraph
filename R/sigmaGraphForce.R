@@ -31,7 +31,7 @@ sigmaGraphForce <- function(edges, nodes = NULL, options = list(),
 }
 
 #' @export
-sigmaGraphForceOutput <- function(outputId, width = "100%", height = "400px") {
+sigmaGraphForceOutput <- function(outputId, width = "100%", height = "500px") {
   shinyWidgetOutput(outputId, "sigmaGraphForce", width, height, package = "sigmaGraph")
 }
 

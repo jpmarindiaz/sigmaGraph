@@ -11,17 +11,21 @@ library(sigmaGraph)
 #edges <- read.csv("inst/data/edges.csv", stringsAsFactors=FALSE)
 #nodes <- read.csv("inst/data/nodes.csv", stringsAsFactors=FALSE)
 
-edges <- read.csv("inst/data/edges-empresarios.csv", stringsAsFactors=FALSE)
-nodes <- read.csv("inst/data/nodes-empresarios.csv", stringsAsFactors=FALSE)
+edges <- read.csv("inst/data/network-edges.csv", stringsAsFactors=FALSE)
+nodes <- read.csv("inst/data/network-nodes.csv", stringsAsFactors=FALSE)
+
+nodes$imageUrl <- NULL
+edges$color <- "#136CB8"
 
 sigmaGraphImageNeighbors(edges, nodes)
+
+sigmaGraphNeighbors(edges, nodes)
 
 
 
 sigmaGraphSimple(edges, nodes)
 sigmaGraphDrag(edges, nodes)
 sigmaGraphForce(edges, nodes)
-sigmaGraphNeighbors(edges, nodes)
 
 sigmaGraphSimple(edges[,2:3])
 
