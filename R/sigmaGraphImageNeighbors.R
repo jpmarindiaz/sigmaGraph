@@ -31,12 +31,12 @@ sigmaGraphImageNeighbors <- function(edges, nodes = NULL, options = list(),
 }
 
 #' @export
-sigmaGraphNeighborsOutput <- function(outputId, width = "100%", height = "500px") {
+sigmaGraphImageNeighborsOutput <- function(outputId, width = "100%", height = "500px") {
   shinyWidgetOutput(outputId, "sigmaGraphImageNeighbors", width, height, package = "sigmaGraph")
 }
 
 #' @export
-renderSigmaGraphNeighbors <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderSigmaGraphImageNeighbors <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   shinyRenderWidget(expr, sigmaGraphImageNeighborsOutput, env, quoted = TRUE)
 }
