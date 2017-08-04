@@ -1,21 +1,28 @@
 
-library(devtools)
-library(htmlwidgets)
 
-#load_all()  
-document()
-install()
+devtools::document()
+devtools::install()
 
 library(sigmaGraph)
+library(tidyverse)
 
 #edges <- read.csv("inst/data/edges.csv", stringsAsFactors=FALSE)
 #nodes <- read.csv("inst/data/nodes.csv", stringsAsFactors=FALSE)
 
-edges <- read.csv("inst/data/network-edges.csv", stringsAsFactors=FALSE)
-nodes <- read.csv("inst/data/network-nodes.csv", stringsAsFactors=FALSE)
+ed <- read_csv(system.file("data/edges.csv", package = "sigmaGraph"))
+nd <- read_csv(system.file("data/nodes.csv", package = "sigmaGraph"))
+
+
+sigmaGraph(ed, nd)
+
 
 nodes$imageUrl <- NULL
 edges$color <- "#136CB8"
+
+sigmaGraph(edges, nodes)
+
+
+
 
 sigmaGraphImageNeighbors(edges, nodes)
 

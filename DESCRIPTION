@@ -1,11 +1,13 @@
 Package: sigmaGraph
 Type: Package
 Title: Interface to sigma.js Graph Visualization Library
-Version: 1.0
+Version: 1.1
 Date: 2015-03-05
-Author: Juan Pablo Marín Díaz
-Maintainer: Juan Pablo Marín Díaz <jpmarindiaz@gmail.com>
+Author: Juan Pablo Marin Diaz
+Maintainer: Juan Pablo Marin Diaz <jpmarindiaz@gmail.com>
 Description: Interface to sigma.js Network Visualization Library
 License: MIT + file LICENSE
-Imports:
-    htmlwidgets (>= 0.3)
+Depends:
+    R (>= 3.1.2),
+    htmlwidgets
+RoxygenNote: 6.0.1

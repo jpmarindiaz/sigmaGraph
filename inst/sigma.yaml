@@ -3,5 +3,5 @@ dependencies:
     version: 1.5.1
     src: htmlwidgets/lib/linkurious-v1.5.1
     script: 
-      - sigma.min.js
       - plugins.min.js
+      - sigma.min.js

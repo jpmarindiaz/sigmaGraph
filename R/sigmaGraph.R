@@ -1,28 +1,29 @@
-#' @import htmlwidgets
+
 #' @export
-sigmaGraph <- function(edges, nodes, options = list(),
-                       width = NULL, height = NULL) {  
-  # read the gexf file
-  g <- list(nodes=nodes, edges=edges)    
-  data <- g  
-  data <- RJSONIO::fromJSON(datapackager::listToJSON(g))
-  
-  # create a list that contains the settings
-  
-  drawEdges = TRUE
-  drawNodes = TRUE
-  
-  settings <- list(
-    drawEdges = drawEdges,
-    drawNodes = drawNodes
-  )
-  
+sigmaGraph <- function(d, nodes = NULL, opts = NULL,
+                       width = NULL, height = NULL, ...) {
+
+  opts <- parseOpts(opts, ...)
+  edges <- d
+  if(is.null(nodes))
+    data <- cleanGraph(edges)
+  else{
+    noSingleNodes <- FALSE
+    data <- cleanGraph(edges, nodes = nodes,
+                       nodeSizeVar = opts$data$nodeSizeVar,
+                       nodeColorVar = opts$data$nodeColorVar,
+                       #palette = opts$data$palette,
+                       noSingleNodes = opts$data$noSingleNodes)
+  }
+
+  settings <- opts
+
   # pass the data and settings using 'x'
   x <- list(
     data = data,
     settings = settings
   )
-  
+
   # create the widget
   htmlwidgets::createWidget("sigmaGraph", x, width = width, height = height)
 }
