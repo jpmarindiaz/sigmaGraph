@@ -4,16 +4,29 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
     stop("No edges data.frame")
   }
   if(is.null(opts))
-    stop("need to provide opts list")
-  vars <- list()
+    opts <- sigmaGraphOpts()
+
   sourceVar <- opts$data$edgesSourceVar
   if(!sourceVar %in% names(edges))
     stop("No source var in edges")
   targetVar <- opts$data$edgesTargetVar
   if(!targetVar %in% names(edges))
     stop("No target var in edges")
-  edges <- edges %>% select_(.dots = c(sourceVar, targetVar))
-  names(edges) <- c("source","target")
+
+
+  nodesSizeVar <- opts$data$nodesSizeVar
+  nodesColorVar <- opts$data$nodesColorVar
+  nodesLabelVar <- opts$data$nodesLabelVar
+  nodesPositionX <- opts$data$nodesPositionX
+  nodesPositionY <- opts$data$nodesPositionY
+
+  edgesSizeVar <- opts$data$edgesSizeVar
+  edgesLabelVar <- opts$data$edgesLabelVar
+  edgesTypeVar <- opts$data$edgesTypeVar
+
+  edges$id <-1:nrow(edges)
+  edges <- edges %>% select_(.dots = c("id",sourceVar, targetVar))
+  names(edges) <- c("id","source","target")
 
   if(any_row_with_na(edges))
     warning("Removing edges with NA")
@@ -33,47 +46,39 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
     nodes$id <- as.character(nodes$id)
   }
   nodes <- fct_to_chr(nodes)
-  if(class(c(edges$source,edges$target)) != class(nodes$id))
-    stop("Class of edges and nodes must be the same")
+  #if(class(c(edges$source,edges$target)) != class(nodes$id))
+  #  stop("Class of edges and nodes must be the same")
 
   if (is.null(nodes$id)){
     stop("No node id provided")
   }
 
-  #   if (is.null(nodes$label)){
-  #     message("No node labels provided: using labels as id")
-  #     nodes$label <- nodes$id
-  #   }
-
-  if (is.null(nodes$x) || is.null(nodes$y)){
+  if(!all(c(nodesPositionX, nodesPositionY) %in% names(nodes))){
     message("No node position provided: using automatic")
-    positions <- FALSE
+    nodes$x <- runif(nrow(nodes))
+    nodes$y <- runif(nrow(nodes))
+    #positions <- FALSE
   }
 
-  if(!is.null(nodeSizeVar)){
-    nodes$size <- nodes[[nodeSizeVar]]
+  if(nodesSizeVar %in% names(nodes)){
+    nodes$size <- nodes[[nodesSizeVar]]
   }else{
-    nodeSizeVar <- "size"
-  }
-
-  if (is.null(nodes$size)){
-    message("No node size provided: using random value")
     nodes$size <- 1
-  }else{
-    vars$size <- nodeSizeVar
   }
 
-  if (is.null(nodeColorVar)){
-    if(is.null(nodes$color)){
-      nodes$color <- "#FE34A0"
+  if(nodesColorVar %in% names(nodes)){
+    nodes$color <- paletero(nodes, palette = opts$palette, by = nodesColorVar)
+  }else{
+    if(is.null(opts$nodesColorPalette)){
+      nodes$color <- opts$defaultNodeColor
+    }else{
+      nodes$color <- opts$defaultNodeColor
     }
-  }else{
-    if(!nodeColorVar %in% names(nodes))
-      stop("nodeColorVar not in nodes")
-    nodes$color <- getColors(nodes[[nodeColorVar]], palette)
   }
 
-  if(is.null(nodes$label)){
+  if(nodesLabelVar %in% names(nodes)){
+    nodes$label <- nodes[[nodesSizeVar]]
+  }else{
     nodes$label <- nodes$id
   }
 
@@ -91,12 +96,12 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   #       edges$id <- seq(1:nrow(edges))
   #     }
   #   }
-  if (is.null(edges$size)){
+  if (!edgesSizeVar %in% names(edges)){
     message("No edge size provided: using 1")
     edges$size <- 1
   }
-  if (is.null(edges$label)){
-    message("No edge label provided")
+  if(!edgesLabelVar %in% names(edges)){
+    message("No edge label provided, using edge empty label.")
     edges$label <- ""
   }
 
@@ -105,21 +110,24 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
     nodes <- nodes %>% filter(id %in% nodesInEdges)
   }
 
-  #   if (is.null(edges$type)){
-  #     message("No edge type provided: using random")
-  #     etypes <- c("line","arrow","curvedArrow","curve")
-  #     edges$type <- sample(etypes,1)
-  #   }
+  if (!edgesTypeVar %in% names(edges)){
+    message("No edge type provided: using curvedArrow")
+    etypes <- c("line","arrow","curvedArrow","curve")
+    edges$type <- "curvedArrow"
+  }
 
-  #   nodes <- apply(nodes, 1,function(r){
-  #     as.list(r)
-  #   })
-  #
-  #   edges <- apply(edges, 1,function(r){
-  #     as.list(r)
-  #   })
+  if(!allEdgesNodesInNodes(edges,nodes)){
+    stop("Not all source and target nodes are in nodes table")
+  }
 
-  g <- list(nodes=nodes, edges=edges, positions = positions, vars = vars)
+  g <- list(nodes=nodes, edges=edges)
+  #g <- list(nodes=nodes, edges=edges, positions = positions, vars = vars)
   data <- g
   data
+}
+
+
+allEdgesNodesInNodes <- function(edges,nodes){
+  n <- unique(c(as.character(edges$source), as.character(edges$target)))
+  all(n %in% nodes$id)
 }

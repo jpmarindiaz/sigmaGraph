@@ -1,7 +1,0 @@
-dependencies:
-  - name: sigma
-    version: 1.0.3
-    src: htmlwidgets/lib/sigma-1.0.3
-    script: 
-      - sigma.min.js
-      - plugins/sigma.layout.forceAtlas2.min.js

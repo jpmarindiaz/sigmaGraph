@@ -25,6 +25,8 @@ test_that("clean graph",{
   ed <- readr::read_csv(system.file("data/edges.csv", package = "sigmaGraph"))
   nd <- readr::read_csv(system.file("data/nodes.csv", package = "sigmaGraph"))
 
+  expect_false(allEdgesNodesInNodes(ed,nd))
+
   # cleanGraph(edges, nodes = NULL,
   #            nodeSizeVar = NULL,
   #            nodeColorVar = NULL,
@@ -39,8 +41,12 @@ test_that("clean graph",{
   opts <- parseOpts(opts)
   edges <- data.frame(src = c(1,NA), tgt = c(2,1))
 
+  l <- cleanGraph(edges, opts = opts)
+
   expect_warning(cleanGraph(edges, opts = opts),"Removing edges with NA")
-  cleanGraph(edges, opts = opts)
+
+
+
 
 
 })

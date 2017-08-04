@@ -3,17 +3,13 @@
 sigmaGraph <- function(d, nodes = NULL, opts = NULL,
                        width = NULL, height = NULL, ...) {
 
-  opts <- parseOpts(opts, ...)
+  opts <- parseOpts(opts = opts, ...)
   edges <- d
   if(is.null(nodes))
     data <- cleanGraph(edges)
   else{
     noSingleNodes <- FALSE
-    data <- cleanGraph(edges, nodes = nodes,
-                       nodeSizeVar = opts$data$nodeSizeVar,
-                       nodeColorVar = opts$data$nodeColorVar,
-                       #palette = opts$data$palette,
-                       noSingleNodes = opts$data$noSingleNodes)
+    data <- cleanGraph(edges, nodes = nodes, opts = opts)
   }
 
   settings <- opts

@@ -12,8 +12,17 @@ library(tidyverse)
 ed <- read_csv(system.file("data/edges.csv", package = "sigmaGraph"))
 nd <- read_csv(system.file("data/nodes.csv", package = "sigmaGraph"))
 
+sigmaGraph(ed, opts = list(plugins = list(forceAtlas = TRUE, forceAtlasTime = 20)))
+sigmaGraph(ed, opts = list(plugins = list(dragNodes = TRUE,forceAtlas = TRUE, forceAtlasTime = 20)))
+sigmaGraph(ed, opts = list(plugins = list(dragNodes = TRUE)))
 
+ed <- ed %>% filter(source %in% nd$id, target %in% nd$id)
 sigmaGraph(ed, nd)
+
+sigmaGraph(ed, nd, opts = list(plugins = list(dragNodes = TRUE)))
+
+sigmaGraph(ed, nd, opts = list(plugins = list(dragNodes = TRUE,forceAtlas = TRUE, forceAtlasTime = 20)))
+
 
 
 nodes$imageUrl <- NULL

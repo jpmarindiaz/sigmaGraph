@@ -9,5 +9,7 @@ Description: Interface to sigma.js Network Visualization Library
 License: MIT + file LICENSE
 Depends:
     R (>= 3.1.2),
-    htmlwidgets
+    htmlwidgets,
+    tidyverse,
+    paletero
 RoxygenNote: 6.0.1
