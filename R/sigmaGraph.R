@@ -16,7 +16,7 @@ sigmaGraph <- function(d, nodes = NULL, opts = NULL,
 
   # pass the data and settings using 'x'
   x <- list(
-    data = data,
+    data = data[c("nodes","edges")],
     settings = settings
   )
 

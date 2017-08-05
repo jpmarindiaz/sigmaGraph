@@ -7,26 +7,32 @@ sigmaGraphOpts <- function(){
       nodesSizeVar = "size",
       nodesColorVar = "color",
       nodesLabelVar = "label",
+      nodesImageVar = "image",
       nodesPositionX = "x",
       nodesPositionY = "y",
       edgesSourceVar = "source",
       edgesTargetVar = "target",
       edgesSizeVar = "size",
       edgesLabelVar = "label",
-      edgesTypeVar = "curvedArrow",
+      edgesTypeVar = "type",
       noSingleNodes = FALSE
     ),
     defaultNodeColor = "#cccccc",
     palette = "Set2",
     plugins = list(
-      dragNoes = TRUE
+      dragNodes = TRUE,
+      forceAtlas = FALSE,
+      forceAtlasTime = 2000,
+      images = FALSE,
+      neighbors = FALSE
     ),
     sigma = list(
       font = 'robotoregular',
-      minNodeSize = 3,
-      maxNodeSize = 8,
-      minEdgeSize = 1,
-      maxEdgeSize = 1.5,
+      drawLabels = TRUE,
+      minNodeSize = 5,
+      maxNodeSize = 10,
+      minEdgeSize = 2,
+      maxEdgeSize = 5,
       enableEdgeHovering = FALSE,
       edgeHoverSizeRatio = 2,
       edgeHoverColor = 'edge',
@@ -40,8 +46,8 @@ sigmaGraphOpts <- function(){
       edgeHoverHighlightNodes = 'circle',
       #     doubleClickEnabled = FALSE,
       labelHoverShadow = '',
-      defaultLabelSize = 12,
-      labelThreshold = 3,
+      defaultLabelSize = 10,
+      labelThreshold = 0,
       drawEdgeLabels = FALSE,
       # defaultEdgeHoverColor = '#000',
       edgeHoverExtremities = TRUE,
@@ -49,15 +55,17 @@ sigmaGraphOpts <- function(){
       # # ADD when auto curving parallel edges. Doesn't work with tapered edges
       # autoCurveSortByDirection = FALSE,
       mouseWheelEnabled = FALSE,
-      sideMargin = 40,
+      sideMargin = 0,
       zoomingRatio = 1.1,
       # zoomMin = 0.05,
       # zoomMax = 50,
       # autoRescale = ['nodeSize', 'edgeSize'],
-      nodesPowRatio = 0.1,
+      nodesPowRatio = 0.5,
       edgeLabelSize = 'fixed',
-      edgeLabelThreshold = 3,
-      autoCurveRatio = 1
+      edgeLabelThreshold = 2,
+      autoCurveRatio = 0,
+      imageThreshold = 0,
+      defaultEdgeType = 'tapered'
     )
   )
 }
