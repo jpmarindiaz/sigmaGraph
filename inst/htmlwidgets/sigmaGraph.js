@@ -185,7 +185,7 @@ HTMLWidgets.widget({
     resize: function(el, width, height, instance) {
 
         // forward resize on to sigma renderers
-        //for (var name in instance.sig.renderers)
-        //  instance.sig.renderers[name].resize(width, height);  
+        for (var name in instance.sig.renderers)
+         instance.sig.renderers[name].resize(width, height);  
     }
 });

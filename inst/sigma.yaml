@@ -1,7 +1,0 @@
-dependencies:
-  - name: sigma
-    version: 1.5.1
-    src: htmlwidgets/lib/linkurious-v1.5.1
-    script: 
-      - plugins.min.js
-      - sigma.min.js
