@@ -29,10 +29,15 @@ opts <- list(
 ui = shinyUI(fluidPage(
   checkboxInput("drawEdgeLabels", "Draw Edge Labels", value = TRUE),
   checkboxInput("drawNodes", "Draw Nodes", value = TRUE),
+  verbatimTextOutput("debug"),
   sigmaGraphOutput('sigma')
 ))
 
 server = function(input, output) {
+  output$debug <- renderPrint({
+    input$sigmaGraph_clicked_node
+  })
+
   output$sigma <- renderSigmaGraph({
     if(is.null(input$drawEdges) || is.null(input$drawEdgeLabels))
     opts <- list(

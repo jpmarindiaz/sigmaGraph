@@ -55,7 +55,7 @@ HTMLWidgets.widget({
 
         var settings = x.settings;
         var g = x.data;
-        if(x.debug){
+        if (x.debug) {
             console.log("settings", settings)
             console.log("graph", g)
         }
@@ -75,16 +75,27 @@ HTMLWidgets.widget({
 
         // Clear the graph
         instance.sig.graph.clear();
-        
+
         // Read graph
         instance.sig.graph.read(g);
 
         // Apply settings
         instance.sig.settings(settings.sigma);
 
-        if(x.debug){
+        if (x.debug) {
             console.log("sigma instance", instance.sig)
         }
+
+        // Handle node clicks
+
+        instance.sig.bind('clickNode', function(e) {
+            if(x.debug){
+                console.log('clicked node', e.data.node.id)            
+            }
+            if (typeof Shiny != "undefined") {
+                Shiny.onInputChange('sigmaGraph_clicked_node', e.data.node.id)
+            }
+        });
 
         // Plug-ins
 
