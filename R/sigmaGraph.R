@@ -1,6 +1,6 @@
 
 #' @export
-sigmaGraph <- function(d, nodes = NULL, opts = NULL,
+sigmaGraph <- function(d, nodes = NULL, opts = NULL, debug = FALSE,
                        width = NULL, height = NULL, ...) {
 
   opts <- parseOpts(opts = opts, ...)
@@ -17,7 +17,8 @@ sigmaGraph <- function(d, nodes = NULL, opts = NULL,
   # pass the data and settings using 'x'
   x <- list(
     data = data[c("nodes","edges")],
-    settings = settings
+    settings = settings,
+    debug = debug
   )
 
   # create the widget

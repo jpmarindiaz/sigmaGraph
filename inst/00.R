@@ -35,7 +35,9 @@ sigmaGraph(ed, opts = list(plugins = list(forceAtlas = TRUE, forceAtlasTime = 40
 sigmaGraph(ed, opts = list(plugins = list(dragNodes = TRUE,forceAtlas = TRUE, forceAtlasTime = 20)))
 sigmaGraph(ed, opts = list(plugins = list(dragNodes = TRUE)))
 
+sigmaGraph(ed, nd, opts = list(sigma = list(zoomMin = 0.05, zoomMax = 50)))
 sigmaGraph(ed, nd)
+
 
 sigmaGraph(ed, nd, opts = list(plugins = list(dragNodes = TRUE)))
 

@@ -54,8 +54,11 @@ HTMLWidgets.widget({
         sigma.renderers.linkurious;
 
         var settings = x.settings;
-        console.log("settings", settings)
         var g = x.data;
+        if(x.debug){
+            console.log("settings", settings)
+            console.log("graph", g)
+        }
         var nodes = HTMLWidgets.dataframeToD3(x.data.nodes);
         var edges = HTMLWidgets.dataframeToD3(x.data.edges);
         var g = { nodes: nodes, edges: edges };
@@ -76,6 +79,10 @@ HTMLWidgets.widget({
 
         // Apply settings
         instance.sig.settings(settings.sigma);
+
+        if(x.debug){
+            console.log("sigma instance", instance.sig)
+        }
 
         // Plug-ins
 
