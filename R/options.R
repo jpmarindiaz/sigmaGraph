@@ -29,6 +29,9 @@ sigmaGraphOpts <- function(){
     sigma = list(
       font = 'robotoregular',
       drawLabels = TRUE,
+      drawNodes = TRUE,
+      drawEdges = TRUE,
+      drawEdgeLabels = FALSE,
       minNodeSize = 5,
       maxNodeSize = 10,
       minEdgeSize = 2,
@@ -48,7 +51,6 @@ sigmaGraphOpts <- function(){
       labelHoverShadow = '',
       defaultLabelSize = 10,
       labelThreshold = 0,
-      drawEdgeLabels = FALSE,
       # defaultEdgeHoverColor = '#000',
       edgeHoverExtremities = TRUE,
       # edgeHoverPrecision = 3,

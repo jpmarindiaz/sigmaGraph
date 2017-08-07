@@ -73,8 +73,10 @@ HTMLWidgets.widget({
             }
         }
 
+        // Clear the graph
+        instance.sig.graph.clear();
+        
         // Read graph
-        // console.log("graph", g)
         instance.sig.graph.read(g);
 
         // Apply settings
