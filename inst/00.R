@@ -8,13 +8,14 @@ library(tidyverse)
 
 
 edges <- read_csv(system.file("data/edges-whois-co-1.csv", package = "sigmaGraph"))
+edges$label <- sample(LETTERS, nrow(edges))
 nodes <- read_csv(system.file("data/nodes-whois-co-1.csv", package = "sigmaGraph"))
 nodes <- nodes %>% mutate(title = id)
 opts <- list(
   data = list(
     nodesColorVar = "entity",
-    nodesLabelVar = "title",
-    edgesLabelVar = "type"
+    nodesLabelVar = "title"
+    #edgesLabelVar = "type"
   ),
   plugins = list(
     forceAtlas = FALSE,
@@ -23,7 +24,7 @@ opts <- list(
   sigma = list(
     drawEdgeLabels = TRUE,
     mouseWheelEnabled = TRUE,
-    edgeLabelThreshold = 0,
+    #edgeLabelThreshold = 0,
     enableEdgeHovering = TRUE
   )
 )
@@ -49,8 +50,8 @@ tidyverseLogos <- paste0("http://",tidyverse,".tidyverse.org/logo.png")
 nd$image <- sample(tidyverseLogos,nrow(nd),replace = TRUE)
 
 sigmaGraph(ed, nd, opts = list(plugins = list(images = TRUE, neighbors = TRUE),
-           sigma = list(imageThreshold = 0,minNodeSize = 20,maxNodeSize = 20,
-                        drawLabels = FALSE, drawEdges = TRUE)))
+                               sigma = list(imageThreshold = 0,minNodeSize = 20,maxNodeSize = 20,
+                                            drawLabels = FALSE, drawEdges = TRUE)))
 
 sigmaGraph(ed, nd, opts = list(data = list(nodeImageVar = "images"),
                                plugins = list(images = TRUE)))
@@ -69,6 +70,14 @@ sigmaGraph(ed, nd)
 sigmaGraph(ed, nd, opts = list(plugins = list(dragNodes = TRUE)))
 
 sigmaGraph(ed, nd, opts = list(plugins = list(dragNodes = TRUE,forceAtlas = TRUE, forceAtlasTime = 20)))
+
+ed$label <- 1:nrow(ed)
+sigmaGraph(ed, nd,
+           opts = list(
+                  plugins = list(dragNodes = TRUE,forceAtlas = TRUE, forceAtlasTime = 20),
+                  sigma = list(drawEdgeLabels = TRUE)
+                  )
+          )
 
 
 

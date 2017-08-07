@@ -62,7 +62,7 @@ sigmaGraphOpts <- function(){
       # autoRescale = ['nodeSize', 'edgeSize'],
       nodesPowRatio = 0.5,
       edgeLabelSize = 'fixed',
-      edgeLabelThreshold = 2,
+      edgeLabelThreshold = 0,
       autoCurveRatio = 0,
       imageThreshold = 0,
       defaultEdgeType = 'tapered'

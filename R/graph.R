@@ -26,8 +26,9 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   edgesTypeVar <- opts$data$edgesTypeVar
 
   edges$id <-paste0("e",1:nrow(edges))
-  edges <- edges %>% select_(.dots = c("id",sourceVar, targetVar))
-  names(edges) <- c("id","source","target")
+  #edges <- edges %>% select_(.dots = c("id",sourceVar, targetVar))
+  #names(edges) <- c("id","source","target")
+  edges <- edges %>% select(id, c("id",sourceVar, targetVar), everything())
 
   if(any_row_with_na(edges))
     warning("Removing edges with NA in source or target")
@@ -103,9 +104,11 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
     message("No edge size provided: using 1")
     edges$size <- 1
   }
-  if(!edgesLabelVar %in% names(edges)){
-    message("No edge label provided, using edge empty label.")
+  if(edgesLabelVar %in% names(edges)){
+    edges$label <- edges[[edgesLabelVar]]
+  }else{
     edges$label <- ""
+    message("No edge label provided, using edge empty label.")
   }
 
   if(noSingleNodes){
