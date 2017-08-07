@@ -6,6 +6,33 @@ devtools::install()
 library(sigmaGraph)
 library(tidyverse)
 
+
+edges <- read_csv(system.file("data/edges-whois-co-1.csv", package = "sigmaGraph"))
+nodes <- read_csv(system.file("data/nodes-whois-co-1.csv", package = "sigmaGraph"))
+nodes <- nodes %>% mutate(title = id)
+opts <- list(
+  data = list(
+    nodesColorVar = "entity",
+    nodesLabelVar = "title",
+    edgesLabelVar = "type"
+  ),
+  plugins = list(
+    forceAtlas = FALSE,
+    forceAtlasTime = 10
+  ),
+  sigma = list(
+    drawEdgeLabels = TRUE,
+    mouseWheelEnabled = TRUE,
+    edgeLabelThreshold = 0,
+    enableEdgeHovering = TRUE
+  )
+)
+sigmaGraph(edges, nodes = nodes, opts = opts, debug = TRUE)
+
+
+
+
+
 #edges <- read.csv("inst/data/edges.csv", stringsAsFactors=FALSE)
 #nodes <- read.csv("inst/data/nodes.csv", stringsAsFactors=FALSE)
 

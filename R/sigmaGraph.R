@@ -6,7 +6,7 @@ sigmaGraph <- function(d, nodes = NULL, opts = NULL, debug = FALSE,
   opts <- parseOpts(opts = opts, ...)
   edges <- d
   if(is.null(nodes))
-    data <- cleanGraph(edges)
+    data <- cleanGraph(edges, opts = opts)
   else{
     noSingleNodes <- FALSE
     data <- cleanGraph(edges, nodes = nodes, opts = opts)
@@ -20,7 +20,12 @@ sigmaGraph <- function(d, nodes = NULL, opts = NULL, debug = FALSE,
     settings = settings,
     debug = debug
   )
-
+  if(debug){
+    message("Graph Data")
+    str(data)
+    message("Settings")
+    str(settings)
+  }
   # create the widget
   htmlwidgets::createWidget("sigmaGraph", x, width = width, height = height)
 }

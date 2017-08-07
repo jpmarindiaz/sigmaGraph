@@ -1,5 +1,5 @@
 cleanGraph <- function(edges, nodes = NULL, opts = NULL){
-
+  #opts <- sigmaGraph:::parseOpts(opts)
   if (is.null(edges)){
     stop("No edges data.frame")
   }
@@ -30,7 +30,7 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   names(edges) <- c("id","source","target")
 
   if(any_row_with_na(edges))
-    warning("Removing edges with NA")
+    warning("Removing edges with NA in source or target")
 
   edges <- edges %>% filter(!is.na(source), !is.na(target))
   edges <- fct_to_chr(edges)
@@ -78,7 +78,9 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   }
 
   if(nodesLabelVar %in% names(nodes)){
-    nodes$label <- nodes[[nodesSizeVar]]
+    nodes$label <- nodes[[nodesLabelVar]]
+    if(any(is.na(nodes$label)))
+      warning("There are NA labels")
   }else{
     nodes$label <- nodes$id
   }
