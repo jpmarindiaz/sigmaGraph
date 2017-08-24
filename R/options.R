@@ -23,6 +23,9 @@ sigmaGraphOpts <- function(){
       dragNodes = TRUE,
       forceAtlas = FALSE,
       forceAtlasTime = 2000,
+      forceAtlasConfig = list(
+
+      ),
       images = FALSE,
       neighbors = FALSE
     ),

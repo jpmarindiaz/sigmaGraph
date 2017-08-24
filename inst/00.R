@@ -9,23 +9,29 @@ library(tidyverse)
 
 edges <- read_csv(system.file("data/edges-whois-co-1.csv", package = "sigmaGraph"))
 edges$label <- sample(LETTERS, nrow(edges))
+edges$weight <- runif(nrow(edges))
 nodes <- read_csv(system.file("data/nodes-whois-co-1.csv", package = "sigmaGraph"))
 nodes <- nodes %>% mutate(title = id)
 opts <- list(
   data = list(
     nodesColorVar = "entity",
-    nodesLabelVar = "title"
+    nodesLabelVar = "title",
+    edgesSizeVar = "weight"
     #edgesLabelVar = "type"
   ),
   plugins = list(
-    forceAtlas = FALSE,
-    forceAtlasTime = 10
+    forceAtlas = TRUE,
+    forceAtlasTime = 2000,
+    forceAtlasConfig = list(
+      scalingRatio = 0.5
+    )
   ),
   sigma = list(
     drawEdgeLabels = TRUE,
     mouseWheelEnabled = TRUE,
     #edgeLabelThreshold = 0,
-    enableEdgeHovering = TRUE
+    enableEdgeHovering = TRUE,
+    defaultEdgeType = "tapered"
   )
 )
 sigmaGraph(edges, nodes = nodes, opts = opts, debug = TRUE)

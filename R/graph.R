@@ -25,6 +25,8 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   edgesLabelVar <- opts$data$edgesLabelVar
   edgesTypeVar <- opts$data$edgesTypeVar
 
+
+
   edges$id <-paste0("e",1:nrow(edges))
   #edges <- edges %>% select_(.dots = c("id",sourceVar, targetVar))
   #names(edges) <- c("id","source","target")
@@ -100,9 +102,12 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   #       edges$id <- seq(1:nrow(edges))
   #     }
   #   }
+
   if (!edgesSizeVar %in% names(edges)){
     message("No edge size provided: using 1")
     edges$size <- 1
+  }else{
+    edges$size <- edges[[edgesSizeVar]]
   }
   if(edgesLabelVar %in% names(edges)){
     edges$label <- edges[[edgesLabelVar]]
@@ -119,7 +124,7 @@ cleanGraph <- function(edges, nodes = NULL, opts = NULL){
   if (!edgesTypeVar %in% names(edges)){
     message("No edge type provided: using curvedArrow")
     etypes <- c("line","arrow","curvedArrow","curve")
-    edges$type <- "tapered"
+    edges$type <- opts$sigma$defaultEdgeType
   }
 
   if(opts$plugins$images){
