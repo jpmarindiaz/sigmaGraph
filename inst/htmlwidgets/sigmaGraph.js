@@ -110,7 +110,9 @@ HTMLWidgets.widget({
         // forceAtlas
         if (settings.plugins.forceAtlas) {
             var forceAtlasTime = settings.plugins.forceAtlasTime || 2000;
-            instance.sig.startForceAtlas2();
+            var forceAtlasConfig = settings.plugins.forceAtlasConfig || {};
+            // https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2
+            instance.sig.startForceAtlas2(forceAtlasConfig);
             setTimeout(function() {
                 instance.sig.stopForceAtlas2();
             }, forceAtlasTime)
