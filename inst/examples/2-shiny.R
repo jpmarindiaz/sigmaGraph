@@ -30,22 +30,42 @@ ui = shinyUI(fluidPage(
   checkboxInput("drawEdgeLabels", "Draw Edge Labels", value = TRUE),
   checkboxInput("drawNodes", "Draw Nodes", value = TRUE),
   verbatimTextOutput("debug"),
-  sigmaGraphOutput('sigma')
+  sigmaGraphOutput('sigma'),
+  sigmaGraphOutput('sigma2')
 ))
 
 server = function(input, output) {
   output$debug <- renderPrint({
-    input$sigma_clicked_node
+    paste0("Sigma1: ",input$sigma_clicked_node,
+           "\nSigma2: ", input$sigma2_clicked_node)
+  })
+
+  output$sigma2 <- renderSigmaGraph({
+    if(is.null(input$drawEdges) || is.null(input$drawEdgeLabels))
+      opts2 <- list(
+        plugins = list(
+          forceAtlas = TRUE,
+          forceAtlasTime = 4000,
+          forceAtlasConfig = list(
+            strongGravityMode = TRUE
+          )
+        ),
+        sigma = list(
+          drawEdgeLabels = FALSE,
+          drawNodes = TRUE
+        )
+      )
+    sigmaGraph(edges, nodes = nodes, opts = opts2, debug = TRUE, height = 200)
   })
 
   output$sigma <- renderSigmaGraph({
     if(is.null(input$drawEdges) || is.null(input$drawEdgeLabels))
-    opts <- list(
-      sigma = list(
-        drawEdgeLabels = input$drawEdgeLabels,
-        drawNodes = input$drawNodes
+      opts <- list(
+        sigma = list(
+          drawEdgeLabels = input$drawEdgeLabels,
+          drawNodes = input$drawNodes
+        )
       )
-    )
     sigmaGraph(edges, nodes = nodes, opts = opts, debug = TRUE)
   })
 }

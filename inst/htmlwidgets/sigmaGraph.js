@@ -20,15 +20,23 @@ HTMLWidgets.widget({
         // });
 
         // https://github.com/jacomyal/sigma.js/issues/715
-        sigma.classes.graph.addMethod('neighbors', function(nodeId) {
-            var i,
-                neighbors = {},
-                index = this.allNeighborsIndex.get(nodeId).keyList() || {};
-            for (i = 0; i < index.length; i++) {
-                neighbors[index[i]] = this.nodesIndex.get(index[i]);
-            }
-            return neighbors;
-        });
+
+        if (typeof sigma.classes.graph.neighbors != "undefined") {
+            // console.log("undefined sigma neighbors")
+
+            sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+                var i,
+                    neighbors = {},
+                    index = this.allNeighborsIndex.get(nodeId).keyList() || {};
+                for (i = 0; i < index.length; i++) {
+                    neighbors[index[i]] = this.nodesIndex.get(index[i]);
+                }
+                return neighbors;
+            });
+
+        } else {
+            // console.log("defined sigma neighbors")
+        };
 
 
         // Initialize packages:
@@ -37,6 +45,8 @@ HTMLWidgets.widget({
         //Canvas renderer for edges shape
         sigma.renderers.def = sigma.renderers.canvas;
 
+
+        console.log("Element Id", el.id)
 
         // create our sigma object and bind it to the element
         var sig = new sigma(
@@ -89,11 +99,12 @@ HTMLWidgets.widget({
         // Handle node clicks
 
         instance.sig.bind('clickNode', function(e) {
-            if(x.debug){
-                console.log('clicked node', e.data.node.id)            
+            if (x.debug) {
+                console.log('clicked node', e.data.node.id)
             }
             if (typeof Shiny != "undefined") {
-                Shiny.onInputChange('sigmaGraph_clicked_node', e.data.node.id)
+                console.log("Element Id", el.id)
+                Shiny.onInputChange(el.id+'_clicked_node', e.data.node.id)
             }
         });
 
@@ -187,7 +198,7 @@ HTMLWidgets.widget({
     resize: function(el, width, height, instance) {
 
         // forward resize on to sigma renderers
-        for (var name in instance.sig.renderers)
-         instance.sig.renderers[name].resize(width, height);  
+        // for (var name in instance.sig.renderers)
+        //  instance.sig.renderers[name].resize(width, height);  
     }
 });

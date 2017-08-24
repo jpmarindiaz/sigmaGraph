@@ -22,6 +22,7 @@ opts <- list(
   plugins = list(
     forceAtlas = TRUE,
     forceAtlasTime = 2000,
+    # https://github.com/jacomyal/sigma.js/tree/master/plugins/sigma.layout.forceAtlas2
     forceAtlasConfig = list(
       scalingRatio = 0.5
     )
